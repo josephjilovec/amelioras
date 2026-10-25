@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Ameliora — Living Conditions Improvement & Shared Prosperity",
   description:
     "Ameliora is a for-profit living-conditions improvement platform helping individuals move into conditions where they feel they are living better through accessible upgrades to environments, routines, and daily friction points.",
-  metadataBase: new URL("https://amelioras.vercel.app"),
+  metadataBase: new URL("https://amelioras.josephjilovec.com"),
   alternates: {
     canonical: "/",
   },
