@@ -146,7 +146,7 @@ export default function HomePage() {
         <section id="about" className="section section-alt">
           <div className="container">
             <div className="section-head">
-              <span className="section-kicker">The Ameliora Philosophy</span>
+              <span className="section-kicker">The Amelioras Philosophy</span>
               <h2 className="section-title">The middle ground between luxury design and emergency relief.</h2>
               <p className="section-desc">
                 From the Latin <em>ameliorare</em> — to make better. We exist for the millions of people who are not in crisis shelter, but who go to sleep and wake up in living spaces that drain their energy, dignity, and calm.
@@ -491,7 +491,7 @@ export default function HomePage() {
               <div className="card">
                 <h3 style={{ fontSize: "20px", color: "var(--primary)", marginBottom: "12px" }}>For Churches &amp; Ministries</h3>
                 <p style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6", marginBottom: "14px" }}>
-                  Churches are often the first place struggling families turn. Rather than merely writing a temporary utility check, benevolence ministries can sponsor an Ameliora assessment and living upgrade bundle, solving root friction points in the home.
+                  Churches are often the first place struggling families turn. Rather than merely writing a temporary utility check, benevolence ministries can sponsor an Amelioras assessment and living upgrade bundle, solving root friction points in the home.
                 </p>
                 <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--accent-strong)" }}>
                   ✓ Pastoral care intake · Benevolence co-funding · Volunteer fellowship installation
@@ -501,7 +501,7 @@ export default function HomePage() {
               <div className="card">
                 <h3 style={{ fontSize: "20px", color: "var(--primary)", marginBottom: "12px" }}>For Nonprofits &amp; CBOs</h3>
                 <p style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6", marginBottom: "14px" }}>
-                  Community service organizations integrate our diagnostic tools into family case management. Ameliora provides direct co-delivery grant disbursements and anonymized outcomes data to demonstrate programmatic efficacy.
+                  Community service organizations integrate our diagnostic tools into family case management. Amelioras provides direct co-delivery grant disbursements and anonymized outcomes data to demonstrate programmatic efficacy.
                 </p>
                 <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--accent-strong)" }}>
                   ✓ Case management tools · Direct grant co-delivery · Measured wellbeing metrics
@@ -511,7 +511,7 @@ export default function HomePage() {
               <div className="card">
                 <h3 style={{ fontSize: "20px", color: "var(--primary)", marginBottom: "12px" }}>For Housing &amp; Employers</h3>
                 <p style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6", marginBottom: "14px" }}>
-                  Housing authorities and employers contract with Ameliora to improve residential quality-of-life, reduce tenant turnover, combat domestic exhaustion, and enhance workforce productivity.
+                  Housing authorities and employers contract with Amelioras to improve residential quality-of-life, reduce tenant turnover, combat domestic exhaustion, and enhance workforce productivity.
                 </p>
                 <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--accent-strong)" }}>
                   ✓ Municipal RFPs · Resident retention · Non-destructive building upgrades
@@ -578,7 +578,7 @@ export default function HomePage() {
               Whether you are an individual seeking to improve your home environment, or a church, nonprofit, or employer exploring partnership, we welcome your conversation.
             </p>
             <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
-              <a href="mailto:contact@amelioras.com?subject=Ameliora%20Partnership%20Inquiry" className="btn btn-accent" style={{ fontSize: "15px", padding: "12px 28px" }}>
+              <a href="mailto:contact@amelioras.com?subject=Amelioras%20Partnership%20Inquiry" className="btn btn-accent" style={{ fontSize: "15px", padding: "12px 28px" }}>
                 Reach Out to Our Team
               </a>
               <a href="https://github.com/josephjilovec/amelioras" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ color: "white", borderColor: "rgba(255,255,255,0.3)" }}>
