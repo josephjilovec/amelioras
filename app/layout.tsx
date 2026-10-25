@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Ameliora — Living Conditions Improvement & Shared Prosperity",
+  title: "Amelioras — Living Conditions Improvement & Shared Prosperity",
   description:
-    "Ameliora is a for-profit living-conditions improvement platform helping individuals move into conditions where they feel they are living better through accessible upgrades to environments, routines, and daily friction points.",
+    "Amelioras is a for-profit living-conditions improvement platform helping individuals move into conditions where they feel they are living better through accessible upgrades to environments, routines, and daily friction points.",
   metadataBase: new URL("https://amelioras.josephjilovec.com"),
   alternates: {
     canonical: "/",
   },
   keywords: [
-    "Ameliora",
+    "Amelioras",
     "living conditions improvement",
     "shared prosperity",
     "living assessment",
@@ -21,16 +21,16 @@ export const metadata: Metadata = {
     "public balance sheet",
   ],
   openGraph: {
-    title: "Ameliora — Practical Living Upgrades & Shared Prosperity",
+    title: "Amelioras — Practical Living Upgrades & Shared Prosperity",
     description:
       "A transparent, for-profit engine helping people improve home environments and routines, while reinvesting majority surplus into communities.",
     url: "https://amelioras.vercel.app",
-    siteName: "Ameliora",
+    siteName: "Amelioras",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ameliora — Living Conditions Improvement",
+    title: "Amelioras — Living Conditions Improvement",
     description:
       "Helping people feel they are living better through practical, accessible upgrades to living environments and daily routines.",
   },

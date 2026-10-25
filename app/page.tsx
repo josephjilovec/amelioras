@@ -26,7 +26,7 @@ export default function HomePage() {
           <a href="#" className="brand-wrap">
             <div className="brand-icon">A</div>
             <div className="brand-text">
-              <span className="brand-title">Ameliora</span>
+              <span className="brand-title">Amelioras</span>
               <span className="brand-tag">Living Better · Shared Prosperity</span>
             </div>
           </a>
@@ -60,7 +60,7 @@ export default function HomePage() {
                 Practical upgrades for people who want to live better.
               </h1>
               <p className="hero-lede">
-                Ameliora helps individuals and families move out of conditions that feel inadequate
+                Amelioras helps individuals and families move out of conditions that feel inadequate
                 through accessible improvements to living environments, daily routines, and household
                 friction points.
               </p>
@@ -596,7 +596,7 @@ export default function HomePage() {
             <div className="footer-col">
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
                 <div style={{ width: "28px", height: "28px", background: "var(--accent)", borderRadius: "6px", color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold" }}>A</div>
-                <span style={{ fontSize: "18px", fontWeight: 800, color: "white" }}>Ameliora</span>
+                <span style={{ fontSize: "18px", fontWeight: 800, color: "white" }}>Amelioras</span>
               </div>
               <p style={{ fontSize: "14px", lineHeight: "1.6", color: "#94a3b8", marginBottom: "16px" }}>
                 A for-profit company structured around shared prosperity, radical transparency, and practical living-conditions improvements.
@@ -640,7 +640,7 @@ export default function HomePage() {
 
           <div className="footer-bottom">
             <div>
-              &copy; {new Date().getFullYear()} Ameliora. Inclusivity, diversity, and shared prosperity.
+              &copy; {new Date().getFullYear()} Amelioras. Inclusivity, diversity, and shared prosperity.
             </div>
             <div>
               <a href="https://josephjilovec.com" target="_blank" rel="noreferrer" style={{ color: "var(--accent)" }}>
