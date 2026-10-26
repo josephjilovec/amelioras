@@ -468,8 +468,8 @@ export default function HomePage() {
                 <div style={{ fontSize: "14px", color: "#94a3b8" }}>
                   Quarterly reports audited and certified by independent ethics &amp; community board members.
                 </div>
-                <a href="https://github.com/josephjilovec/amelioras/blob/main/docs/business-model.md" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ color: "white", borderColor: "rgba(255, 255, 255, 0.25)", background: "transparent" }}>
-                  Read the Business Model Doc ↗
+                <a href="#prosperity" className="btn btn-outline" style={{ color: "white", borderColor: "rgba(255, 255, 255, 0.25)", background: "transparent" }}>
+                  Explore Our Public Commitments
                 </a>
               </div>
             </div>
@@ -627,13 +627,13 @@ export default function HomePage() {
             </div>
 
             <div className="footer-col">
-              <h5>Documentation</h5>
+              <h5>Explore Amelioras</h5>
               <ul>
-                <li><a href="https://github.com/josephjilovec/amelioras/blob/main/docs/business-model.md" target="_blank" rel="noreferrer">Business Model</a></li>
-                <li><a href="https://github.com/josephjilovec/amelioras/blob/main/docs/offerings.md" target="_blank" rel="noreferrer">System Offerings</a></li>
-                <li><a href="https://github.com/josephjilovec/amelioras/blob/main/docs/governance.md" target="_blank" rel="noreferrer">Governance</a></li>
-                <li><a href="https://github.com/josephjilovec/amelioras/blob/main/docs/partnerships.md" target="_blank" rel="noreferrer">Partnerships</a></li>
-                <li><a href="https://github.com/josephjilovec/amelioras/blob/main/docs/roadmap.md" target="_blank" rel="noreferrer">Roadmap</a></li>
+                <li><a href="#about">Our Mission</a></li>
+                <li><a href="#offerings">Offerings</a></li>
+                <li><a href="#governance">Governance</a></li>
+                <li><a href="#partners">Partnerships</a></li>
+                <li><a href="#assessment">Living Assessment</a></li>
               </ul>
             </div>
           </div>
