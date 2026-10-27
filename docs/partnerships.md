@@ -2,6 +2,6 @@
 
 The complete working document was preserved in restricted Venture Studio storage. Internal brand planning, operating assumptions, and partnership details are no longer published at this path.
 
-For public information visit https://amelioras.com/#partners.
+For public information visit https://amelioras.josephjilovec.com/#partners.
 
 Prior public versions may still be available in Git history.

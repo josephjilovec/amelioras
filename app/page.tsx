@@ -1,655 +1,84 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
+import { FormEvent, useEffect, useRef, useState } from "react";
+
+type Goal = "morning" | "evening" | "workspace";
+type Step = { title: string; detail: string; reason: string };
+const ideas: Record<Goal, { label: string; steps: Step[] }> = {
+  morning: { label: "A smoother morning", steps: [
+    { title: "Give the essentials one landing place.", detail: "Try a bowl or tray you already have for keys and the things you take out each day.", reason: "One visible place means fewer places to check before leaving." },
+    { title: "Prepare one thing the evening before.", detail: "Choose a bag, a note, or tomorrow’s essentials. Keep it where you will notice it.", reason: "A small decision made earlier can simplify the next morning." },
+    { title: "Leave the route through the room clear.", detail: "Look at where bags or shoes tend to collect and choose an alternative that keeps the walkway open.", reason: "The useful arrangement is the one that fits how you actually move." },
+  ] },
+  evening: { label: "A calmer evening", steps: [
+    { title: "Make one place ready to pause.", detail: "Clear a chair or a small surface. Keep the rest of the room out of the task for now.", reason: "A manageable area is easier to reset than an entire home." },
+    { title: "Try the light you already have.", detail: "Compare the room’s existing lighting options and choose the one that feels most comfortable for your evening activity.", reason: "Trying the setting first helps you decide whether anything needs to be bought." },
+    { title: "Close the day with one simple reset.", detail: "Put tomorrow’s essentials together or return a few objects to their usual place.", reason: "A repeatable small step is more useful than a demanding new routine." },
+  ] },
+  workspace: { label: "A clearer workspace", steps: [
+    { title: "Make room for the task in front of you.", detail: "Move unrelated objects to a nearby tray or shelf you already use.", reason: "A clear working area makes the next task easier to see." },
+    { title: "Keep the frequently used things within reach.", detail: "Notice what you repeatedly get up to find, then try a more convenient home for it.", reason: "The arrangement should follow your work rather than an idealized photograph." },
+    { title: "Give unfinished work a stopping place.", detail: "Use a folder, a small box, or a note to collect what you want to return to next time.", reason: "A visible next step makes it easier to resume without starting over." },
+  ] },
+};
+const householdEmail = "mailto:contact@amelioras.com?subject=Full%20Living%20Assessment%20Request";
+const partnerEmail = "mailto:contact@amelioras.com?subject=Amelioras%20Partnership%20Inquiry";
 
 export default function HomePage() {
-  // Interactive Living Assessment Simulator State
-  const [step, setStep] = useState(1);
-  const [answers, setAnswers] = useState({
-    spaceType: "apartment",
-    sleepIssue: "noise",
-    airLighting: "dim",
-    budget: "under50",
-  });
-  const [calculated, setCalculated] = useState(false);
-
-  const calculateScore = () => {
-    setCalculated(true);
-  };
-
-  return (
-    <>
-      {/* Site Header */}
-      <header className="site-header">
-        <div className="container header-inner">
-          <a href="#" className="brand-wrap">
-            <div className="brand-icon">A</div>
-            <div className="brand-text">
-              <span className="brand-title">Amelioras</span>
-              <span className="brand-tag">Living Better · Shared Prosperity</span>
-            </div>
-          </a>
-
-          <nav className="nav-links">
-            <a href="#about" className="nav-link">Our Model</a>
-            <a href="#offerings" className="nav-link">Offerings</a>
-            <a href="#assessment" className="nav-link">Living Assessment</a>
-            <a href="#prosperity" className="nav-link">Public Balance Sheet</a>
-            <a href="#partners" className="nav-link">Churches & Nonprofits</a>
-            <a href="#governance" className="nav-link">Governance</a>
-          </nav>
-
-          <div className="nav-actions">
-            <a href="#assessment" className="btn btn-primary">
-              Assess Your Space
-            </a>
-          </div>
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [example, setExample] = useState<"before" | "shift">("shift");
+  const [goal, setGoal] = useState<Goal | "">("");
+  const [space, setSpace] = useState("");
+  const [budget, setBudget] = useState("");
+  const [plan, setPlan] = useState<{ goal: Goal; space: string; budget: string } | null>(null);
+  const resultHeading = useRef<HTMLHeadingElement>(null);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  useEffect(() => { if (plan) resultHeading.current?.focus(); }, [plan]);
+  function buildPlan(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (goal && space && budget) setPlan({ goal, space, budget });
+  }
+  const nav = <>
+    <a href="#offerings" onClick={() => setMenuOpen(false)}>A small change</a>
+    <a href="#about" onClick={() => setMenuOpen(false)}>Our approach</a>
+    <a href="#partners" onClick={() => setMenuOpen(false)}>For community partners</a>
+  </>;
+  return <>
+    <a className="skip-link" href="#main">Skip to content</a>
+    <header className="site-header" onKeyDown={event => { if (event.key === "Escape" && menuOpen) { setMenuOpen(false); menuButton.current?.focus(); } }}>
+      <div className="wrap header-row">
+        <a href="#top" className="brand" aria-label="Amelioras home"><img src="/ameliora-mark.svg" width="42" height="42" alt="" /><span>Amelioras<small>Living better. Shared prosperity.</small></span></a>
+        <nav className="desktop-nav" aria-label="Main navigation">{nav}</nav>
+        <a className="button small header-cta" href="#assessment">Make a small plan <span aria-hidden="true">↗</span></a>
+        <button className="menu-button" ref={menuButton} aria-expanded={menuOpen} aria-controls="mobile-nav" onClick={() => setMenuOpen(!menuOpen)}>Menu <span aria-hidden="true">{menuOpen ? "−" : "+"}</span></button>
+      </div>
+      <nav id="mobile-nav" className="mobile-nav" aria-label="Mobile navigation" hidden={!menuOpen}>{nav}<a href="#assessment" onClick={() => setMenuOpen(false)}>Make a small plan</a></nav>
+    </header>
+    <main id="main">
+      <section className="hero wrap" id="top" aria-labelledby="hero-title">
+        <div className="hero-copy"><p className="eyebrow"><span className="seed" aria-hidden="true" /> Practical living improvements · In development</p><h1 id="hero-title">A little easier.<br /><span>Every day.</span></h1><p className="hero-lede">A place for the keys. A corner that works. One less thing to think about.</p><p>Amelioras is exploring affordable ways to improve the spaces and routines we live with. Start with one everyday friction, and one manageable change.</p><a href="#assessment" className="button">Find your first small step <span aria-hidden="true">↗</span></a><a className="text-link" href="#offerings">See what a small change can look like <span aria-hidden="true">↓</span></a></div>
+        <figure className="hero-scene"><div className="scene-label">A home that works with you.</div><img src="/everyday-entry.svg" width="800" height="740" fetchPriority="high" alt="Original illustration of an everyday entryway with a chair, a bag, a plant, and a small tray for the essentials." /><figcaption><span className="note-number">01</span> A landing place, not a perfect home.<small>Illustrative household scene, not a completed client project.</small></figcaption></figure>
+      </section>
+      <section id="offerings" className="small-change" aria-labelledby="change-title"><div className="wrap change-grid">
+        <div><p className="eyebrow">Start smaller than a makeover.</p><h2 id="change-title">The morning rush<br />has a familiar shape.</h2><p>Keys on the table. A bag by the door. Someone looking for the thing they had a moment ago.</p><p>A useful improvement does not have to change the whole room. It can begin with the things you already own.</p><div className="example-controls" role="group" aria-label="Illustrative morning routine"><button aria-pressed={example === "before"} onClick={() => setExample("before")}>The familiar friction</button><button aria-pressed={example === "shift"} onClick={() => setExample("shift")}>One small shift</button></div></div>
+        <div className="routine-note" aria-live="polite"><span className="paper-kicker">An illustrative morning / {example === "before" ? "Before" : "A possible change"}</span><h3>{example === "before" ? "Three things. Three different places." : "One place for the things you take."}</h3><div className={"object-line " + example} aria-hidden="true"><span>keys</span><span>bag</span><span>tomorrow’s note</span></div><p>{example === "before" ? "The same search repeats because the everyday essentials do not have a clear home." : "An existing tray, an agreed place for the bag, and a note for tomorrow can make the first step clearer."}</p><div className="handwritten">Try it. Notice it. Adjust it.</div><small>A planning example. No measured time saving or household outcome is implied.</small></div>
+      </div></section>
+      <section id="assessment" className="planner-section wrap" aria-labelledby="planner-title">
+        <div className="planner-intro"><p className="eyebrow">Your small plan</p><h2 id="planner-title">What would you<br />like to make easier?</h2><p>Choose one goal. We will turn it into a short list of ideas to consider, with a reason for each step.</p><p className="fine-print">A local planning exercise, not a diagnostic assessment. Your choices stay in this page and are not saved or submitted.</p></div>
+        <div className="planner-workspace"><form onSubmit={buildPlan} className="planner-form">
+          <div className="field"><label htmlFor="goal"><span>01</span> Choose one everyday goal</label><select id="goal" value={goal} required onChange={event => { setGoal(event.target.value as Goal); setPlan(null); }}><option value="">Select a goal</option><option value="morning">A smoother morning</option><option value="evening">A calmer evening</option><option value="workspace">A clearer workspace</option></select></div>
+          <div className="field"><label htmlFor="space"><span>02</span> What should the plan respect?</label><select id="space" value={space} required onChange={event => { setSpace(event.target.value); setPlan(null); }}><option value="">Choose your space</option><option value="renter">A rented home</option><option value="shared">A shared space</option><option value="own">A home I can change</option></select></div>
+          <div className="field"><label htmlFor="budget"><span>03</span> How would you like to start?</label><select id="budget" value={budget} required onChange={event => { setBudget(event.target.value); setPlan(null); }}><option value="">Choose a starting point</option><option value="existing">Use what I have</option><option value="small">Consider a small purchase</option><option value="support">Explore help from others</option></select></div>
+          <button className="button" type="submit">Build my small plan <span aria-hidden="true">↗</span></button>
+        </form>
+        {plan ? <div className="plan-result"><p className="eyebrow">A starting point, shaped by your choices</p><h3 ref={resultHeading} tabIndex={-1}>{ideas[plan.goal].label}</h3><ol>{ideas[plan.goal].steps.map((step, index) => <li key={step.title}><span className="step-number">0{index + 1}</span><div><h4>{step.title}</h4><p>{step.detail}</p><p className="reason"><strong>Why this step:</strong> {step.reason}</p></div></li>)}</ol><div className="constraint-note"><h4>Make it fit your situation.</h4><p>{plan.space === "renter" ? "Keep the first experiment freestanding and reversible. Check your lease and get permission before fixing anything to the property." : plan.space === "shared" ? "Agree on the change with the people who share the space, and keep shared walkways clear." : "Try the arrangement before making a permanent change. Use a qualified professional for work that needs one."}</p><p>{plan.budget === "existing" ? "Start with a bowl, tray, folder, lamp, or storage space you already have. There is no shopping list to complete." : plan.budget === "small" ? "Test the arrangement with what you have first. If a purchase would help, check its size, suitability, and actual cost before deciding." : "Choose one task you would like help with. A friend or a community organization may be a place to start; availability of Amelioras support has not been established."}</p></div><a className="text-link" href={householdEmail}>Ask about a living-improvement conversation <span aria-hidden="true">↗</span></a><p className="fine-print">Opens your email app. The plan is not sent automatically.</p></div> : <div className="plan-placeholder"><span aria-hidden="true">＋</span><p>One goal is enough to begin.</p><small>Your explained planning list will appear here.</small></div>}
         </div>
-      </header>
-
-      <main>
-        {/* Hero Section */}
-        <section className="hero-section">
-          <div className="container hero-grid">
-            <div className="hero-content">
-              <div className="hero-badge">
-                <span>🌱 For-Profit Impact · Reinvestment Driven</span>
-              </div>
-              <h1 className="hero-title">
-                Practical upgrades for people who want to live better.
-              </h1>
-              <p className="hero-lede">
-                Amelioras helps individuals and families move out of conditions that feel inadequate
-                through accessible improvements to living environments, daily routines, and household
-                friction points.
-              </p>
-              <div className="hero-actions">
-                <a href="#assessment" className="btn btn-primary">
-                  Start Living Assessment →
-                </a>
-                <a href="#partners" className="btn btn-outline">
-                  Partner with Us (Churches &amp; Nonprofits)
-                </a>
-              </div>
-              <div className="hero-stats">
-                <div className="stat-item">
-                  <h4>60%+</h4>
-                  <p>Surplus Reinvested in Communities</p>
-                </div>
-                <div className="stat-item">
-                  <h4>100%</h4>
-                  <p>Public-Facing Balance Sheet</p>
-                </div>
-                <div className="stat-item">
-                  <h4>Tenant-Safe</h4>
-                  <p>No Structural Alteration Required</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Assessment Preview Interactive Mockup */}
-            <div className="assessment-mockup">
-              <div className="mockup-header">
-                <div>
-                  <div style={{ fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--accent-strong)", fontWeight: 700 }}>
-                    Diagnostics Engine
-                  </div>
-                  <h3 style={{ fontSize: "18px", color: "var(--primary)", fontWeight: 700 }}>
-                    Living Score Diagnostic
-                  </h3>
-                </div>
-                <div className="mockup-score-badge">
-                  <span>Score: 68/100</span>
-                </div>
-              </div>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                <div style={{ padding: "14px", borderRadius: "8px", background: "var(--bg-subtle)", border: "1px solid var(--line)" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px", fontWeight: 600, marginBottom: "6px" }}>
-                    <span>Sleep Environment &amp; Acoustics</span>
-                    <span style={{ color: "var(--gold)" }}>Friction Detected</span>
-                  </div>
-                  <p style={{ fontSize: "12px", color: "var(--text-muted)" }}>
-                    Traffic noise and ambient morning light disrupting REM cycle by 42 minutes.
-                  </p>
-                </div>
-
-                <div style={{ padding: "14px", borderRadius: "8px", background: "var(--bg-subtle)", border: "1px solid var(--line)" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px", fontWeight: 600, marginBottom: "6px" }}>
-                    <span>Daily Routine Flow</span>
-                    <span style={{ color: "var(--accent-strong)" }}>Moderate</span>
-                  </div>
-                  <p style={{ fontSize: "12px", color: "var(--text-muted)" }}>
-                    Morning entryway bottleneck causing delayed departures and daily friction.
-                  </p>
-                </div>
-
-                <div style={{ padding: "16px", borderRadius: "10px", background: "var(--accent-soft)", border: "1px solid rgba(20, 184, 166, 0.3)" }}>
-                  <div style={{ fontSize: "12px", fontWeight: 700, color: "var(--accent-strong)", textTransform: "uppercase", marginBottom: "4px" }}>
-                    Tier I Recommendation
-                  </div>
-                  <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--primary)" }}>
-                    Magnetic blackout seal &amp; entry catchall caddy
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: "8px", fontSize: "12px", color: "var(--text-muted)" }}>
-                    <span>Est. Cost: $34</span>
-                    <span>Expected Stress Drop: 28%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section: The Problem and Our Model */}
-        <section id="about" className="section section-alt">
-          <div className="container">
-            <div className="section-head">
-              <span className="section-kicker">The Amelioras Philosophy</span>
-              <h2 className="section-title">The middle ground between luxury design and emergency relief.</h2>
-              <p className="section-desc">
-                From the Latin <em>ameliorare</em> — to make better. We exist for the millions of people who are not in crisis shelter, but who go to sleep and wake up in living spaces that drain their energy, dignity, and calm.
-              </p>
-            </div>
-
-            <div className="grid-3">
-              <div className="card">
-                <div className="card-icon-box" style={{ background: "rgba(217, 119, 6, 0.12)", color: "var(--gold)" }}>
-                  ⚖️
-                </div>
-                <h3 style={{ fontSize: "20px", marginBottom: "12px", color: "var(--primary)" }}>For-Profit by Design</h3>
-                <p style={{ fontSize: "15px", color: "var(--text-muted)" }}>
-                  We choose a for-profit structure because it allows us to bid on government contracts, partner with housing authorities, achieve scale, and generate self-sustaining cash flow without relying on donations.
-                </p>
-              </div>
-
-              <div className="card">
-                <div className="card-icon-box" style={{ background: "var(--emerald-soft)", color: "var(--emerald)" }}>
-                  🔄
-                </div>
-                <h3 style={{ fontSize: "20px", marginBottom: "12px", color: "var(--primary)" }}>Shared Prosperity</h3>
-                <p style={{ fontSize: "15px", color: "var(--text-muted)" }}>
-                  The company is built so prosperity can be shared rather than extracted. The majority of operating surplus is channeled directly back into product subsidies, community partner accounts, and lower cost floors.
-                </p>
-              </div>
-
-              <div className="card">
-                <div className="card-icon-box" style={{ background: "var(--accent-soft)", color: "var(--accent-strong)" }}>
-                  🤝
-                </div>
-                <h3 style={{ fontSize: "20px", marginBottom: "12px", color: "var(--primary)" }}>Genuine Collaborators</h3>
-                <p style={{ fontSize: "15px", color: "var(--text-muted)" }}>
-                  Nonprofits and churches are co-delivering partners. They hold board seats, refer families, deploy benevolence budgets with greater efficacy, and co-design offerings rooted in trust.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section: Offerings */}
-        <section id="offerings" className="section">
-          <div className="container">
-            <div className="section-head">
-              <span className="section-kicker">Core System</span>
-              <h2 className="section-title">Practical, tiered pathways to living better.</h2>
-              <p className="section-desc">
-                We break improvements down into manageable, budget-aware tiers so nobody is intimidated or excluded.
-              </p>
-            </div>
-
-            <div className="grid-3">
-              <div className="card" style={{ borderTop: "4px solid var(--accent)" }}>
-                <span style={{ fontSize: "12px", fontWeight: 700, color: "var(--accent-strong)", textTransform: "uppercase" }}>Tier I</span>
-                <h3 style={{ fontSize: "22px", margin: "8px 0 12px", color: "var(--primary)" }}>Immediate Friction Reducers</h3>
-                <p style={{ fontSize: "15px", color: "var(--text-muted)", marginBottom: "18px" }}>
-                  Budget: Under $50. Quick interventions with outsized psychological return.
-                </p>
-                <ul style={{ paddingLeft: "20px", fontSize: "14px", color: "var(--text-muted)", display: "flex", flexDirection: "column", gap: "8px" }}>
-                  <li>Circadian bulb swaps (2700K warm transitions)</li>
-                  <li>Acoustic draft seals and sound-softening textiles</li>
-                  <li>Single-touch entryway drop zones and cord management</li>
-                  <li>Airflow and micro-ventilation positioning</li>
-                </ul>
-              </div>
-
-              <div className="card" style={{ borderTop: "4px solid var(--primary)" }}>
-                <span style={{ fontSize: "12px", fontWeight: 700, color: "var(--primary)", textTransform: "uppercase" }}>Tier II</span>
-                <h3 style={{ fontSize: "22px", margin: "8px 0 12px", color: "var(--primary)" }}>Targeted Living Kits</h3>
-                <p style={{ fontSize: "15px", color: "var(--text-muted)", marginBottom: "18px" }}>
-                  Budget: $50–$350. Curated bundles engineered for comfort and durability.
-                </p>
-                <ul style={{ paddingLeft: "20px", fontSize: "14px", color: "var(--text-muted)", display: "flex", flexDirection: "column", gap: "8px" }}>
-                  <li><strong>The Restful Sanctuary:</strong> Magnetic blackout shades, dual-density noise barriers, ergonomic pillows</li>
-                  <li><strong>The Clean Air &amp; Calm Kit:</strong> True HEPA purification, humidity monitor, clean hydration filters</li>
-                  <li><strong>The Morning Flow Kit:</strong> Visual routine boards, modular prep organizers, task lights</li>
-                </ul>
-              </div>
-
-              <div className="card" style={{ borderTop: "4px solid var(--gold)" }}>
-                <span style={{ fontSize: "12px", fontWeight: 700, color: "var(--gold)", textTransform: "uppercase" }}>Tier III</span>
-                <h3 style={{ fontSize: "22px", margin: "8px 0 12px", color: "var(--primary)" }}>Vetted Service Facilitation</h3>
-                <p style={{ fontSize: "15px", color: "var(--text-muted)", marginBottom: "18px" }}>
-                  Budget: $150+. Fair-wage coordination for hands-on domestic upgrades.
-                </p>
-                <ul style={{ paddingLeft: "20px", fontSize: "14px", color: "var(--text-muted)", display: "flex", flexDirection: "column", gap: "8px" }}>
-                  <li>Landlord-safe wall shelving and secure storage anchoring</li>
-                  <li>Dignity-first professional spatial decluttering</li>
-                  <li>Minor weatherization, insulation, and door fitting</li>
-                  <li>Accessibility adjustments for seniors and mobility needs</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section: Interactive Assessment Tool */}
-        <section id="assessment" className="section section-alt">
-          <div className="container">
-            <div className="section-head">
-              <span className="section-kicker">Interactive Diagnostic</span>
-              <h2 className="section-title">Sample the Living Assessment</h2>
-              <p className="section-desc">
-                Experience how our structured diagnostic evaluates physical space, daily routines, comfort factors, and real-world budget constraints.
-              </p>
-            </div>
-
-            <div style={{ maxWidth: "760px", margin: "0 auto", background: "white", padding: "40px", borderRadius: "16px", border: "1px solid var(--line)", boxShadow: "var(--shadow-md)" }}>
-              {!calculated ? (
-                <div>
-                  <div style={{ marginBottom: "28px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", fontWeight: 700, color: "var(--text-light)", marginBottom: "8px" }}>
-                      <span>STEP {step} OF 3</span>
-                      <span>DIAGNOSTIC QUESTIONNAIRE</span>
-                    </div>
-                    <div style={{ height: "6px", background: "var(--line)", borderRadius: "3px", overflow: "hidden" }}>
-                      <div style={{ width: `${(step / 3) * 100}%`, height: "100%", background: "var(--accent-strong)", transition: "width 0.3s ease" }}></div>
-                    </div>
-                  </div>
-
-                  {step === 1 && (
-                    <div>
-                      <h3 style={{ fontSize: "20px", color: "var(--primary)", marginBottom: "16px" }}>
-                        1. What best describes your primary living friction point?
-                      </h3>
-                      <div style={{ display: "grid", gap: "12px", marginBottom: "24px" }}>
-                        {[
-                          { id: "noise", label: "Acoustics & Noise", desc: "Outside traffic, neighbor disturbances, appliance humming" },
-                          { id: "sleep", label: "Restless Sleep & Light", desc: "Inability to get dark, comfortable, or temperature-regulated sleep" },
-                          { id: "clutter", label: "Spatial Clutter & Bottlenecks", desc: "Nowhere to put daily essentials; morning prep is chaotic" },
-                          { id: "air", label: "Stale Air & Environmental Dryness", desc: "Allergies, dust, lack of fresh air circulation" },
-                        ].map((opt) => (
-                          <label
-                            key={opt.id}
-                            onClick={() => setAnswers({ ...answers, sleepIssue: opt.id })}
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              padding: "16px",
-                              borderRadius: "8px",
-                              border: `1.5px solid ${answers.sleepIssue === opt.id ? "var(--accent-strong)" : "var(--line)"}`,
-                              background: answers.sleepIssue === opt.id ? "var(--accent-soft)" : "white",
-                              cursor: "pointer",
-                            }}
-                          >
-                            <span style={{ fontWeight: 700, color: "var(--primary)", fontSize: "15px" }}>{opt.label}</span>
-                            <span style={{ fontSize: "13px", color: "var(--text-muted)" }}>{opt.desc}</span>
-                          </label>
-                        ))}
-                      </div>
-                      <button onClick={() => setStep(2)} className="btn btn-primary" style={{ width: "100%" }}>
-                        Next Step →
-                      </button>
-                    </div>
-                  )}
-
-                  {step === 2 && (
-                    <div>
-                      <h3 style={{ fontSize: "20px", color: "var(--primary)", marginBottom: "16px" }}>
-                        2. What is your current housing status?
-                      </h3>
-                      <div style={{ display: "grid", gap: "12px", marginBottom: "24px" }}>
-                        {[
-                          { id: "rental", label: "Rental Apartment / Home", desc: "Modifications must be completely non-destructive and landlord-safe" },
-                          { id: "owned", label: "Owned Home or Condo", desc: "Permanent minor alterations and mounting are permitted" },
-                          { id: "shared", label: "Shared Living / Multi-Family", desc: "High density; privacy and sound isolation are key priorities" },
-                        ].map((opt) => (
-                          <label
-                            key={opt.id}
-                            onClick={() => setAnswers({ ...answers, spaceType: opt.id })}
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              padding: "16px",
-                              borderRadius: "8px",
-                              border: `1.5px solid ${answers.spaceType === opt.id ? "var(--accent-strong)" : "var(--line)"}`,
-                              background: answers.spaceType === opt.id ? "var(--accent-soft)" : "white",
-                              cursor: "pointer",
-                            }}
-                          >
-                            <span style={{ fontWeight: 700, color: "var(--primary)", fontSize: "15px" }}>{opt.label}</span>
-                            <span style={{ fontSize: "13px", color: "var(--text-muted)" }}>{opt.desc}</span>
-                          </label>
-                        ))}
-                      </div>
-                      <div style={{ display: "flex", gap: "12px" }}>
-                        <button onClick={() => setStep(1)} className="btn btn-outline" style={{ flex: 1 }}>
-                          ← Back
-                        </button>
-                        <button onClick={() => setStep(3)} className="btn btn-primary" style={{ flex: 2 }}>
-                          Next Step →
-                        </button>
-                      </div>
-                    </div>
-                  )}
-
-                  {step === 3 && (
-                    <div>
-                      <h3 style={{ fontSize: "20px", color: "var(--primary)", marginBottom: "16px" }}>
-                        3. What is your realistic monthly or one-time upgrade budget?
-                      </h3>
-                      <div style={{ display: "grid", gap: "12px", marginBottom: "24px" }}>
-                        {[
-                          { id: "under50", label: "Micro-Budget (Under $50)", desc: "Immediate layout, habit changes, and zero-to-low cost fixes" },
-                          { id: "subsidized", label: "Sponsored / Church Partner Assisted", desc: "Seeking community co-delivery or partner subsidy support" },
-                          { id: "bundle", label: "Targeted Bundle ($50 – $250)", desc: "Ready for dedicated air, sleep, or routine equipment" },
-                        ].map((opt) => (
-                          <label
-                            key={opt.id}
-                            onClick={() => setAnswers({ ...answers, budget: opt.id })}
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              padding: "16px",
-                              borderRadius: "8px",
-                              border: `1.5px solid ${answers.budget === opt.id ? "var(--accent-strong)" : "var(--line)"}`,
-                              background: answers.budget === opt.id ? "var(--accent-soft)" : "white",
-                              cursor: "pointer",
-                            }}
-                          >
-                            <span style={{ fontWeight: 700, color: "var(--primary)", fontSize: "15px" }}>{opt.label}</span>
-                            <span style={{ fontSize: "13px", color: "var(--text-muted)" }}>{opt.desc}</span>
-                          </label>
-                        ))}
-                      </div>
-                      <div style={{ display: "flex", gap: "12px" }}>
-                        <button onClick={() => setStep(2)} className="btn btn-outline" style={{ flex: 1 }}>
-                          ← Back
-                        </button>
-                        <button onClick={calculateScore} className="btn btn-accent" style={{ flex: 2 }}>
-                          Generate My Living Roadmap ✨
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div>
-                  <div style={{ textAlign: "center", marginBottom: "28px" }}>
-                    <div style={{ width: "64px", height: "64px", borderRadius: "50%", background: "var(--emerald-soft)", color: "var(--emerald)", fontSize: "28px", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px" }}>
-                      ✓
-                    </div>
-                    <h3 style={{ fontSize: "24px", color: "var(--primary)", fontWeight: 800 }}>
-                      Your Living Score: 64 / 100
-                    </h3>
-                    <p style={{ fontSize: "15px", color: "var(--text-muted)", marginTop: "6px" }}>
-                      Diagnostic completed for a renter-safe household. High recovery potential in sleep &amp; acoustic recovery.
-                    </p>
-                  </div>
-
-                  <div style={{ background: "var(--bg-subtle)", padding: "20px", borderRadius: "10px", marginBottom: "24px", border: "1px solid var(--line)" }}>
-                    <h4 style={{ fontSize: "15px", color: "var(--primary)", marginBottom: "8px" }}>
-                      Prioritized 30-Day Living Roadmap:
-                    </h4>
-                    <ol style={{ paddingLeft: "20px", fontSize: "14px", color: "var(--text-muted)", display: "flex", flexDirection: "column", gap: "8px" }}>
-                      <li><strong>Day 1:</strong> Reorient bed away from common-wall sound bridge; deploy magnetic acoustic door draft seal.</li>
-                      <li><strong>Day 7:</strong> Implement the 2700K low-kelvin warm evening lighting transition to trigger melatonin.</li>
-                      <li><strong>Day 14:</strong> Install tension-mounted blackout panels without drilling or damaging drywall.</li>
-                    </ol>
-                  </div>
-
-                  <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
-                    <button onClick={() => { setCalculated(false); setStep(1); }} className="btn btn-outline">
-                      Reset Diagnostic
-                    </button>
-                    <a href="mailto:contact@amelioras.com?subject=Full%20Living%20Assessment%20Request" className="btn btn-primary">
-                      Request Full Community Consultation
-                    </a>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* Section: Public Balance Sheet & Shared Prosperity */}
-        <section id="prosperity" className="section">
-          <div className="container">
-            <div className="ledger-panel">
-              <div style={{ maxWidth: "700px" }}>
-                <span style={{ fontSize: "12px", fontWeight: 700, color: "var(--accent)", letterSpacing: "0.14em", textTransform: "uppercase" }}>
-                  Radical Transparency
-                </span>
-                <h2 style={{ fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 800, margin: "12px 0 16px", color: "white" }}>
-                  The Public-Facing Balance Sheet
-                </h2>
-                <p style={{ color: "#94a3b8", fontSize: "17px", lineHeight: "1.6" }}>
-                  Anyone can inspect where our money comes from and where it goes. We believe human flourishing requires removing the secrecy that fuels cynicism.
-                </p>
-              </div>
-
-              <div className="ledger-grid">
-                <div className="ledger-item">
-                  <div className="ledger-pct">60%+</div>
-                  <h4 style={{ color: "white", fontSize: "18px", margin: "8px 0 6px" }}>Community Reinvestment</h4>
-                  <p style={{ fontSize: "13px", color: "#94a3b8" }}>
-                    Funds subsidized household kits, partner church projects, and emergency friction grants.
-                  </p>
-                </div>
-
-                <div className="ledger-item">
-                  <div className="ledger-pct" style={{ color: "#38bdf8" }}>25%</div>
-                  <h4 style={{ color: "white", fontSize: "18px", margin: "8px 0 6px" }}>Platform &amp; R&amp;D</h4>
-                  <p style={{ fontSize: "13px", color: "#94a3b8" }}>
-                    Powers the AI assessment engine, supply-chain bulk pricing, and partner co-delivery apps.
-                  </p>
-                </div>
-
-                <div className="ledger-item">
-                  <div className="ledger-pct" style={{ color: "#f59e0b" }}>15%</div>
-                  <h4 style={{ color: "white", fontSize: "18px", margin: "8px 0 6px" }}>Operational Reserve</h4>
-                  <p style={{ fontSize: "13px", color: "#94a3b8" }}>
-                    Preserves business continuity, fair employee wages, and independent financial health.
-                  </p>
-                </div>
-              </div>
-
-              <div style={{ borderTop: "1px solid rgba(255, 255, 255, 0.12)", paddingTop: "24px", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "16px" }}>
-                <div style={{ fontSize: "14px", color: "#94a3b8" }}>
-                  Quarterly reports audited and certified by independent ethics &amp; community board members.
-                </div>
-                <a href="#prosperity" className="btn btn-outline" style={{ color: "white", borderColor: "rgba(255, 255, 255, 0.25)", background: "transparent" }}>
-                  Explore Our Public Commitments
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section: Partnerships with Nonprofits and Churches */}
-        <section id="partners" className="section section-alt">
-          <div className="container">
-            <div className="section-head">
-              <span className="section-kicker">Collaborative Network</span>
-              <h2 className="section-title">Partnering with Churches &amp; Nonprofits</h2>
-              <p className="section-desc">
-                We do not view faith communities and nonprofits as recipients of charity. They are our frontline co-delivery partners and institutional allies.
-              </p>
-            </div>
-
-            <div className="grid-3">
-              <div className="card">
-                <h3 style={{ fontSize: "20px", color: "var(--primary)", marginBottom: "12px" }}>For Churches &amp; Ministries</h3>
-                <p style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6", marginBottom: "14px" }}>
-                  Churches are often the first place struggling families turn. Rather than merely writing a temporary utility check, benevolence ministries can sponsor an Amelioras assessment and living upgrade bundle, solving root friction points in the home.
-                </p>
-                <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--accent-strong)" }}>
-                  ✓ Pastoral care intake · Benevolence co-funding · Volunteer fellowship installation
-                </div>
-              </div>
-
-              <div className="card">
-                <h3 style={{ fontSize: "20px", color: "var(--primary)", marginBottom: "12px" }}>For Nonprofits &amp; CBOs</h3>
-                <p style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6", marginBottom: "14px" }}>
-                  Community service organizations integrate our diagnostic tools into family case management. Amelioras provides direct co-delivery grant disbursements and anonymized outcomes data to demonstrate programmatic efficacy.
-                </p>
-                <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--accent-strong)" }}>
-                  ✓ Case management tools · Direct grant co-delivery · Measured wellbeing metrics
-                </div>
-              </div>
-
-              <div className="card">
-                <h3 style={{ fontSize: "20px", color: "var(--primary)", marginBottom: "12px" }}>For Housing &amp; Employers</h3>
-                <p style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6", marginBottom: "14px" }}>
-                  Housing authorities and employers contract with Amelioras to improve residential quality-of-life, reduce tenant turnover, combat domestic exhaustion, and enhance workforce productivity.
-                </p>
-                <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--accent-strong)" }}>
-                  ✓ Municipal RFPs · Resident retention · Non-destructive building upgrades
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section: Governance */}
-        <section id="governance" className="section">
-          <div className="container">
-            <div className="section-head">
-              <span className="section-kicker">Stewardship</span>
-              <h2 className="section-title">A Decentralized Board of Directors</h2>
-              <p className="section-desc">
-                Governance designed to include voices beyond a single founder, preventing unilateral extraction and protecting community trust.
-              </p>
-            </div>
-
-            <div className="grid-4">
-              <div className="card" style={{ padding: "24px" }}>
-                <div style={{ fontSize: "24px", marginBottom: "12px" }}>👥</div>
-                <h4 style={{ fontSize: "16px", color: "var(--primary)", marginBottom: "6px" }}>Community Seat</h4>
-                <p style={{ fontSize: "13px", color: "var(--text-muted)" }}>
-                  Held by active participants and constituents from enrolled community neighborhoods.
-                </p>
-              </div>
-
-              <div className="card" style={{ padding: "24px" }}>
-                <div style={{ fontSize: "24px", marginBottom: "12px" }}>⛪</div>
-                <h4 style={{ fontSize: "16px", color: "var(--primary)", marginBottom: "6px" }}>Faith &amp; Civic Seat</h4>
-                <p style={{ fontSize: "13px", color: "var(--text-muted)" }}>
-                  Appointed from collaborating regional churches and interfaith coalitions.
-                </p>
-              </div>
-
-              <div className="card" style={{ padding: "24px" }}>
-                <div style={{ fontSize: "24px", marginBottom: "12px" }}>🎗️</div>
-                <h4 style={{ fontSize: "16px", color: "var(--primary)", marginBottom: "6px" }}>Nonprofit Partner Seat</h4>
-                <p style={{ fontSize: "13px", color: "var(--text-muted)" }}>
-                  Ensures alignment with vulnerable populations and community service objectives.
-                </p>
-              </div>
-
-              <div className="card" style={{ padding: "24px" }}>
-                <div style={{ fontSize: "24px", marginBottom: "12px" }}>📊</div>
-                <h4 style={{ fontSize: "16px", color: "var(--primary)", marginBottom: "6px" }}>Ethics &amp; Audit Seat</h4>
-                <p style={{ fontSize: "13px", color: "var(--text-muted)" }}>
-                  Independent trustee responsible for auditing and certifying the Public Balance Sheet.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section: CTA Banner */}
-        <section style={{ padding: "64px 0", background: "var(--primary)", color: "white" }}>
-          <div className="container" style={{ textAlign: "center", maxWidth: "780px" }}>
-            <h2 style={{ fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 800, marginBottom: "16px" }}>
-              Ready to raise living conditions in your community?
-            </h2>
-            <p style={{ fontSize: "18px", color: "rgba(255, 255, 255, 0.8)", marginBottom: "32px", lineHeight: "1.6" }}>
-              Whether you are an individual seeking to improve your home environment, or a church, nonprofit, or employer exploring partnership, we welcome your conversation.
-            </p>
-            <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
-              <a href="mailto:contact@amelioras.com?subject=Amelioras%20Partnership%20Inquiry" className="btn btn-accent" style={{ fontSize: "15px", padding: "12px 28px" }}>
-                Reach Out to Our Team
-              </a>
-              <a href="https://github.com/josephjilovec/amelioras" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ color: "white", borderColor: "rgba(255,255,255,0.3)" }}>
-                View Open Source Repo ↗
-              </a>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      {/* Footer */}
-      <footer className="site-footer">
-        <div className="container">
-          <div className="footer-grid">
-            <div className="footer-col">
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
-                <div style={{ width: "28px", height: "28px", background: "var(--accent)", borderRadius: "6px", color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold" }}>A</div>
-                <span style={{ fontSize: "18px", fontWeight: 800, color: "white" }}>Amelioras</span>
-              </div>
-              <p style={{ fontSize: "14px", lineHeight: "1.6", color: "#94a3b8", marginBottom: "16px" }}>
-                A for-profit company structured around shared prosperity, radical transparency, and practical living-conditions improvements.
-              </p>
-              <div style={{ fontSize: "12px", color: "#64748b" }}>
-                A [Joseph Jilovec Venture Studio](https://josephjilovec.com/portfolio/ameliora) enterprise.
-              </div>
-            </div>
-
-            <div className="footer-col">
-              <h5>The Platform</h5>
-              <ul>
-                <li><a href="#offerings">Core Offerings</a></li>
-                <li><a href="#assessment">Living Assessment</a></li>
-                <li><a href="#prosperity">Reinvestment Model</a></li>
-                <li><a href="https://amelioras.com">amelioras.com</a></li>
-              </ul>
-            </div>
-
-            <div className="footer-col">
-              <h5>Collaborations</h5>
-              <ul>
-                <li><a href="#partners">Churches &amp; Ministries</a></li>
-                <li><a href="#partners">Nonprofit Partners</a></li>
-                <li><a href="#partners">Housing Authorities</a></li>
-                <li><a href="#governance">Decentralized Board</a></li>
-              </ul>
-            </div>
-
-            <div className="footer-col">
-              <h5>Explore Amelioras</h5>
-              <ul>
-                <li><a href="#about">Our Mission</a></li>
-                <li><a href="#offerings">Offerings</a></li>
-                <li><a href="#governance">Governance</a></li>
-                <li><a href="#partners">Partnerships</a></li>
-                <li><a href="#assessment">Living Assessment</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="footer-bottom">
-            <div>
-              &copy; {new Date().getFullYear()} Amelioras. Inclusivity, diversity, and shared prosperity.
-            </div>
-            <div>
-              <a href="https://josephjilovec.com" target="_blank" rel="noreferrer" style={{ color: "var(--accent)" }}>
-                Part of Joseph Jilovec Venture Studio ↗
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </>
-  );
+      </section>
+      <section id="about" className="approach"><div className="wrap approach-grid"><div><p className="eyebrow">The approach</p><h2>Practical care for<br />ordinary living.</h2></div><div className="approach-copy"><p className="large-copy">Between a full renovation and getting by, there is room for something useful.</p><p>Amelioras is being developed around accessible improvements to home environments and daily routines. The intended pathways include simple adjustments, carefully chosen living kits, and coordinated practical support.</p><dl className="pathways"><div><dt>First, use what is there.</dt><dd>Small layout and routine experiments that make sense for the household.</dd></div><div><dt>Then, consider what is missing.</dt><dd>Product kits and service coordination are proposed offerings, not a currently available catalog or provider network.</dd></div><div><dt>Keep the person in the decision.</dt><dd>Respect budget, shared space, tenancy, and what the household actually wants to change.</dd></div></dl><p className="fine-print">The current website offers an illustrative planner and contact routes. It does not provide a clinical assessment, property inspection, or booked home service.</p></div></div></section>
+      <section id="partners" className="partner-section wrap"><div><p className="eyebrow">For churches, nonprofits, housing teams & employers</p><h2>Build with the people<br />already close to home.</h2><p>The partnership model is intended to connect practical household needs with trusted local relationships. We welcome conversations about what a small, clearly scoped pilot could involve.</p><a href={partnerEmail} className="button">Explore a partnership <span aria-hidden="true">↗</span></a></div><div className="partner-note"><span className="paper-kicker">A useful first conversation</span><ol><li>Which everyday need would the pilot address?</li><li>Who would participate in shaping it?</li><li>What can be offered, by whom, and at what cost?</li><li>What would be recorded—with permission—to learn from it?</li></ol><p className="fine-print">Partnerships, sponsorships, kits, and delivery capacity are in development. No enrollment or funding is promised by this page.</p></div></section>
+      <section id="prosperity" className="prosperity"><div className="wrap prosperity-grid"><div><p className="eyebrow">Shared prosperity</p><h2>A business with<br />a reinvestment purpose.</h2><p>The proposed for-profit model is designed to support practical improvements while directing the majority of operating surplus toward community benefit.</p></div><div><dl className="commitments"><div><dt>Reinvestment policy target</dt><dd>At least 60% of net operating surplus toward community and partnership support. This is a planning target, not a reported allocation.</dd></div><div><dt>Public reporting</dt><dd>A dated balance sheet and reinvestment ledger are planned. No operating financial report or independent audit is published on this page.</dd></div><div><dt>Commercial model</dt><dd>Proposed household offerings, practical products, and institutional partnerships; availability and terms remain to be established.</dd></div></dl><details id="governance"><summary>How is governance intended to work?</summary><p>The proposed model includes community, faith and civic, nonprofit, and independent ethics perspectives. These are intended roles, not a claim that board seats are currently filled or that financial statements have been certified.</p><p>Clear responsibilities, participant consent, and evidence behind public claims should guide the model as it develops.</p></details></div></div></section>
+      <section className="closing wrap"><p className="eyebrow">A smaller first step</p><h2>You do not have to<br />change everything.</h2><a href="#assessment" className="button">Start with one thing <span aria-hidden="true">↗</span></a><a className="text-link" href={householdEmail}>Ask about Amelioras <span aria-hidden="true">↗</span></a></section>
+    </main>
+    <footer className="site-footer"><div className="wrap"><div className="footer-top"><a href="#top" className="brand"><img src="/ameliora-mark.svg" width="38" height="38" alt="" /><span>Amelioras<small>Living better. Shared prosperity.</small></span></a><nav aria-label="Footer navigation"><a href="#offerings">Practical improvements</a><a href="#assessment">Living planner</a><a href="#partners">Partnerships</a><a href="#prosperity">Reinvestment model</a><a href="#governance">Governance</a></nav></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Amelioras · A living-improvement concept.</span><a href="https://josephjilovec.com" target="_blank" rel="noreferrer">Joseph Jilovec Venture Studio ↗</a><a href="https://github.com/josephjilovec/amelioras" target="_blank" rel="noreferrer">Project repository ↗</a></div></div></footer>
+  </>;
 }

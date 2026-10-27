@@ -1,54 +1,33 @@
-# Ameliora
+# Amelioras
 
-**Live Platform:** [https://amelioras.vercel.app](https://amelioras.vercel.app) *(domain `amelioras.com` configured for public release)*  
-**Category:** Living Conditions Improvement & Shared Prosperity  
-**Parent Studio:** [Joseph Jilovec Venture Studio](https://josephjilovec.com/portfolio/ameliora)
+[Public website](https://amelioras.josephjilovec.com/) · Living improvements and shared prosperity
 
-> *"Ameliorate"* — to make better, more tolerable, or more satisfactory.
+Amelioras is a living-improvement concept exploring practical, accessible changes to household environments and daily routines. Its intended for-profit model places community benefit and reinvestment at the center of future operations.
 
-Ameliora is a for-profit living-conditions improvement company that helps people who feel they are not living adequately move into conditions where they feel they are living better. It does this through practical, accessible upgrades to living environments, daily routines, and household friction points.
+## What this repository currently implements
 
-The company is structured to generate sustainable commercial profit, reinvest the majority of that profit back into the business and community impact work, operate with high transparency (including a public-facing balance sheet), and partner as equals with local nonprofits and churches.
+- A responsive public presentation with an original household illustration and an illustrative routine comparison.
+- A browser-local planner: choose an everyday goal, a space constraint, and a starting approach. The output explains each suggested planning step and adapts its constraint notes to the selections.
+- Existing household and partnership email handoffs. The website does not send the plan automatically, collect personal intake, or retain planner choices.
+- Clear distinctions between the current concept, proposed offerings, the reinvestment policy target, and future financial reporting.
+- Keyboard-accessible navigation, native labeled form controls, focus management for the generated plan, and reduced-motion support.
 
----
+The planner does not calculate a clinical or validated wellbeing score. Product kits, coordinated services, subscriptions, telemetry, partner portals, and audited financial reporting are proposed developments rather than implemented features of this repository.
 
-## Mission, Vision & Core Values
+## Public information
 
-### Mission
-Help people improve their living conditions so they feel they are living better, while building a profitable company that reinvests most of its earnings into that work and into the communities it serves.
+- [Business and reinvestment model](docs/business-model.md)
+- [Current planner and proposed offerings](docs/offerings.md)
+- [Governance information](docs/governance.md)
+- [Partnership information](docs/partnerships.md)
+- [Development status](docs/roadmap.md)
 
-### Vision
-A network of individuals, nonprofits, churches, and civic partners who collectively raise living standards in practical, measurable ways. Ameliora prospers by enabling others to prosper and by keeping the majority of surplus inside the system rather than extracting it.
+Earlier working documents were preserved unchanged in the private Venture Studio document repository before these public summaries were updated. Prior public versions can remain in Git history.
 
-### Core Values
-1. **Inclusivity & Diversity**: Operating principles embedded in how we hire, partner, design, and price—never mere marketing language.
-2. **Transparency**: Public-facing financial reporting and balance sheets so anyone can see exactly where every dollar goes.
-3. **Shared Prosperity**: For-profit structure allows us to scale, win contracts, and reinvest; the intent is never founder extraction.
-4. **Practical Impact**: Outcomes people can tangibly feel in their daily living (restful sleep, reduced stress, daily calm), not abstract metrics only.
-5. **Partnership**: Nonprofits and churches are active collaborators and co-deliverers, not merely recipients of charity.
+## Development
 
----
+Next.js App Router, React, TypeScript, and venture-specific CSS. No new external service is required.
 
-## Core Offering: The Living Improvement Engine
+Run `npm ci`, `npm run dev`, `npm run typecheck`, and `npm run build`. The existing Vercel deployment configuration is preserved.
 
-Ameliora sits between high-cost luxury remodeling and emergency crisis charity:
-- **Living Assessment & AI Score**: 10-minute diagnostic analyzing sleep architecture, lighting, air quality, acoustic friction, routine congestion, and budget realities.
-- **Tiered Upgrade Pathways**: Immediate zero-to-low cost friction reducers, curated product kits (The Restful Sanctuary, The Morning Flow, The Air & Calm Kit), and vetted service coordination.
-- **Delivery & Felt Outcomes**: Ongoing check-ins tracking perceived stress, sleep duration, domestic calm, and spatial agency.
-- **Institutional & Community Contracts**: Partnering with municipal housing authorities, employers, property managers, nonprofits, and churches for co-delivered living enhancements.
-
----
-
-## Repository & Documentation Structure
-
-- [Business Model & Reinvestment Policy](docs/business-model.md) — For-profit design, revenue streams, 60%+ surplus reinvestment architecture, and fair-return caps.
-- [Offerings & System Architecture](docs/offerings.md) — Living Assessment details, AI scoring engine, 3-tier upgrade pathways, and product bundles.
-- [Governance & Transparency](docs/governance.md) — Decentralized board of directors, community seats, and public balance sheet auditing.
-- [Nonprofit & Church Partnerships](docs/partnerships.md) — Collaborative models, benevolence ministry integration, co-delivery, and shared contracts.
-- [Operational Roadmap](docs/roadmap.md) — Phased milestones from MVP validation through regional institutional scale.
-
----
-
-## Technical Architecture
-
-Built with Next.js App Router, React 19, TypeScript, and responsive CSS, optimized for high performance, accessibility, mobile-first community intake, and seamless deployment on Vercel.
+The parent Joseph Jilovec Venture Studio repository is excluded from this implementation. This design does not reuse its carousel or scroll experience.

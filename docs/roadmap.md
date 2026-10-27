@@ -1,28 +1,17 @@
-# Ameliora — Operational Roadmap & Execution Priorities
+# Amelioras — Public development status
 
-## Phase I: Foundation & MVP Validation (Q1–Q2)
-- [x] Establish legal operating structure and public shared-prosperity charter.
-- [x] Formalize core documentation and open-architecture repository.
-- [ ] Build and launch the mobile-first **Living Assessment MVP** with instant Living Score generation and prioritized roadmap output.
-- [ ] Curate and test the first 3 physical upgrade bundles:
-  1. *The Restful Sanctuary Kit* (sleep/sound/light).
-  2. *The Air & Clarity Kit* (filtration/ventilation/humidity).
-  3. *The Domestic Flow Kit* (entryway/micro-organization/cords).
-- [ ] Partner with 2 pilot regional churches and 1 local community action nonprofit to test 50 subsidized household upgrades.
-- [ ] Collect initial qualitative and quantitative felt-outcome metrics (sleep duration, perceived daily friction, domestic satisfaction).
+## Current website
 
----
+The public experience introduces the living-improvement concept, an original illustrative household scene, a local goal-based planning exercise, and existing email contact routes.
 
-## Phase II: Partner Platform & Transparency Engine (Q3)
-- [ ] Launch the public-facing **Ameliora Reinvestment Ledger & Balance Sheet** at `amelioras.com/transparency`.
-- [ ] Release the **Partner Portal** enabling caseworkers, pastors, and community navigators to sponsor and track client assessments.
-- [ ] Formalize the initial Decentralized Board of Directors, seating community and faith representatives.
-- [ ] Establish initial vetted local service provider networks in 2 primary metro pilot zones.
+## Proposed next milestones
 
----
+- Review the concept with households and prospective community partners.
+- Define one small pilot with clear scope, ownership, consent, and evaluation criteria.
+- Establish what products or services can actually be offered and on what terms.
+- Verify any future public claims with appropriate operating evidence.
+- Develop dated reinvestment reporting if operating activity supports it.
 
-## Phase III: Institutional Contracts & Regional Scale (Q4+)
-- [ ] Bid on municipal housing authority and workforce development RFPs focused on residential quality-of-life improvements.
-- [ ] Initiate conversations with regional Medicaid Managed Care Organizations (MCOs) for SDOH living-environment pilot contracts.
-- [ ] Expand product catalog with manufacturer direct-supply partnerships to reduce kit unit costs by 25%.
-- [ ] Expand church fellowship co-delivery models across regional denominations and community coalitions.
+The website does not establish legal incorporation status, contracted partners, audited results, fulfillment capacity, a clinical scoring method, or a deployed private platform. No launch dates or enrollments are promised here.
+
+The previous internal operational roadmap was preserved unchanged in the private Venture Studio document repository before this public status summary replaced it. Previous public versions may remain in Git history.

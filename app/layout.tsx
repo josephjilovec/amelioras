@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Amelioras — Living Conditions Improvement & Shared Prosperity",
   description:
-    "Amelioras is a for-profit living-conditions improvement platform helping individuals move into conditions where they feel they are living better through accessible upgrades to environments, routines, and daily friction points.",
+    "A practical living-improvement concept. Explore small changes to everyday spaces and routines, build an explained local planning list, and learn about the shared-prosperity model.",
   metadataBase: new URL("https://amelioras.josephjilovec.com"),
   alternates: {
     canonical: "/",
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Amelioras — Practical Living Upgrades & Shared Prosperity",
     description:
-      "A transparent, for-profit engine helping people improve home environments and routines, while reinvesting majority surplus into communities.",
-    url: "https://amelioras.vercel.app",
+      "Small, practical improvements to everyday living, with a proposed for-profit model centered on community reinvestment.",
+    url: "https://amelioras.josephjilovec.com",
     siteName: "Amelioras",
     type: "website",
   },
