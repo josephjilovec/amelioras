@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Amelioras — Living Conditions Improvement & Shared Prosperity",
   description:
     "A practical living-improvement concept. Explore small changes to everyday spaces and routines, build an explained local planning list, and learn about the shared-prosperity model.",
-  metadataBase: new URL("https://amelioras.josephjilovec.com"),
+  metadataBase: new URL("https://amelioras.summithillholdings.com"),
   alternates: {
     canonical: "/",
   },
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: "Amelioras — Practical Living Upgrades & Shared Prosperity",
     description:
       "Small, practical improvements to everyday living, with a proposed for-profit model centered on community reinvestment.",
-    url: "https://amelioras.josephjilovec.com",
+    url: "https://amelioras.summithillholdings.com",
     siteName: "Amelioras",
     type: "website",
   },

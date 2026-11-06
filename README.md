@@ -1,6 +1,6 @@
 # Amelioras
 
-[Public website](https://amelioras.josephjilovec.com/) · Living improvements and shared prosperity
+[Public website](https://amelioras.summithillholdings.com/) · Living improvements and shared prosperity
 
 Amelioras is a living-improvement concept exploring practical, accessible changes to household environments and daily routines. Its intended for-profit model places community benefit and reinvestment at the center of future operations.
 
@@ -30,4 +30,4 @@ Next.js App Router, React, TypeScript, and venture-specific CSS. No new external
 
 Run `npm ci`, `npm run dev`, `npm run typecheck`, and `npm run build`. The existing Vercel deployment configuration is preserved.
 
-The parent Joseph Jilovec Venture Studio repository is excluded from this implementation. This design does not reuse its carousel or scroll experience.
+The parent Summit Hill Holdings repository is excluded from this implementation. This design does not reuse its carousel or scroll experience.

@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://amelioras.josephjilovec.com/sitemap.xml",
+    sitemap: "https://amelioras.summithillholdings.com/sitemap.xml",
   };
 }
